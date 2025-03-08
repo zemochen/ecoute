@@ -4,13 +4,14 @@ from prompts import create_prompt, INITIAL_RESPONSE
 import time
 
 openai.api_key = OPENAI_API_KEY
+openai.api_base = "https://api.deepseek.com"
 
 def generate_response_from_transcript(transcript):
     try:
         response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo-0301",
-                messages=[{"role": "system", "content": create_prompt(transcript)}],
-                temperature = 0.0
+            model="deepseek-chat",
+            messages=[{"role": "system", "content": create_prompt(transcript)}],
+            temperature = 0.0
         )
     except Exception as e:
         print(e)
@@ -33,6 +34,7 @@ class GPTResponder:
 
                 transcriber.transcript_changed_event.clear() 
                 transcript_string = transcriber.get_transcript()
+                print(transcript_string)
                 response = generate_response_from_transcript(transcript_string)
                 
                 end_time = time.time()  # Measure end time
