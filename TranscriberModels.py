@@ -3,6 +3,9 @@ import whisper
 import os
 import torch
 
+from LlmClient import get_openai_client
+
+
 def get_model(use_api):
     if use_api:
         return APIWhisperTranscriber()
@@ -12,6 +15,7 @@ def get_model(use_api):
 class WhisperTranscriber:
     def __init__(self):
         self.audio_model = whisper.load_model(os.path.join(os.getcwd(), 'tiny.en.pt'))
+        self.audio_model =whisper.load_model("small")
         print(f"[INFO] Whisper using GPU: " + str(torch.cuda.is_available()))
 
     def get_transcription(self, wav_file_path):
@@ -24,10 +28,12 @@ class WhisperTranscriber:
     
 class APIWhisperTranscriber:
     def get_transcription(self, wav_file_path):
+        client = get_openai_client()
+
         try:
             with open(wav_file_path, "rb") as audio_file:
                 result = openai.Audio.transcribe("whisper-1", audio_file)
         except Exception as e:
             print(e)
             return ''
-        return result['text'].strip()
+        return result.text

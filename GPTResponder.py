@@ -1,14 +1,15 @@
-import openai
+import os
+from openai import OpenAI
+
+from LlmClient import get_openai_client
 from keys import OPENAI_API_KEY
 from prompts import create_prompt, INITIAL_RESPONSE
 import time
 
-openai.api_key = OPENAI_API_KEY
-openai.api_base = "https://api.deepseek.com"
-
 def generate_response_from_transcript(transcript):
     try:
-        response = openai.ChatCompletion.create(
+        client = get_openai_client()
+        response = client.chat.completions.create(
             model="deepseek-chat",
             messages=[{"role": "system", "content": create_prompt(transcript)}],
             temperature = 0.0
