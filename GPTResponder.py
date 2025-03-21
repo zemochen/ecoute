@@ -1,19 +1,16 @@
 import os
 from openai import OpenAI
 
-from LlmClient import get_openai_client
+import LlmClient as llmClient
+
 from keys import OPENAI_API_KEY
 from prompts import create_prompt, INITIAL_RESPONSE
 import time
 
 def generate_response_from_transcript(transcript):
     try:
-        client = get_openai_client()
-        response = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[{"role": "system", "content": create_prompt(transcript)}],
-            temperature = 0.0
-        )
+        response = llmClient.request_volce_engine(create_prompt(transcript))
+
     except Exception as e:
         print(e)
         return ''
