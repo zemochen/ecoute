@@ -16,7 +16,7 @@ class FasterWhisperTranscriber:
         print(f"[INFO] Loading Faster Whisper model...")
         self.model = WhisperModel("tiny.en", device="cuda" if torch.cuda.is_available() else "cpu",
                                  compute_type="float32" if torch.cuda.is_available() else "int8")
-        self.audio_model =whisper.load_model("small")
+        # self.audio_model =whisper.load_model("small")
         print(f"[INFO] Faster Whisper using GPU: {torch.cuda.is_available()}")
 
     def get_transcription(self, wav_file_path):
@@ -30,11 +30,9 @@ class FasterWhisperTranscriber:
 
 class APIWhisperTranscriber:
     def __init__(self, api_key=None):
-        self.client = OpenAI(api_key=api_key)
+        self.client = get_openai_client()
 
     def get_transcription(self, wav_file_path):
-        client = get_openai_client()
-
         try:
             with open(wav_file_path, "rb") as audio_file:
                 result = self.client.audio.transcriptions.create(

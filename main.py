@@ -1,7 +1,7 @@
 import threading
 from AudioTranscriber import AudioTranscriber
 import customtkinter as ctk
-import AudioRecorder 
+import AudioRecorder
 import queue
 import time
 import sys
@@ -33,25 +33,25 @@ def create_ui_components(root, transcriber, speaker_queue, mic_queue):
 
     root.grid_columnconfigure(0, weight=1)
     root.grid_rowconfigure(0, weight=1)
-    
+
     main_frame = ctk.CTkFrame(root)
     main_frame.grid(row=0, column=0, sticky="nsew", padx=20, pady=20)
-    
+
     main_frame.grid_columnconfigure(0, weight=1)
     main_frame.grid_rowconfigure(0, weight=1)
     main_frame.grid_rowconfigure(1, weight=0)
 
     transcript_textbox = ctk.CTkTextbox(
-        main_frame, 
-        font=("Arial", 20), 
-        text_color='#FFFCF2', 
+        main_frame,
+        font=("Arial", 20),
+        text_color='#FFFCF2',
         wrap="word"
     )
     transcript_textbox.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
     clear_button = ctk.CTkButton(
-        main_frame, 
-        text="Clear Transcript", 
+        main_frame,
+        text="Clear Transcript",
         command=lambda: clear_context(transcriber, speaker_queue, mic_queue)
     )
     clear_button.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 10))

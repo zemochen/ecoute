@@ -119,3 +119,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to improve Ecoute.
+
+### Code Style
+For code style, we follow the [PEP 8](https://www.python.org/dev/peps/pep-0008/) guidelines. We recommend using a linter like [flake8](https://flake8.pycqa.org/en/latest/) to ensure your code adheres to these guidelines.
